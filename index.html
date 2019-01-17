@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pageshow from history back</title>
+</head>
+<body>
+    <h1>
+        <a href="http://www.daum.net">next</a>
+    </h1>
+
+    <hr />
+
+    <h1>Log</h1>
+    <div id="logs">
+        first rendered.
+    </div>
+
+
+    <script>
+        window.addEventListener('pageshow', function(event) {
+            var logsEl = document.getElementById('logs');
+
+            var isBackIOS = event.persisted;
+            var isBack = (
+                window.performance.navigation.type === 2 ||
+                window.performance.getEntries()[0].type === 'back_forward'
+            );
+
+            if(isBackIOS || isBack) {
+                logsEl.innerText = logsEl.innerText + '\n - come from back button';
+            }
+        });
+    </script>
+</body>
+</html>
